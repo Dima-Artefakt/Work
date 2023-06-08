@@ -6,6 +6,7 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -21,6 +22,8 @@ class UserCrudController extends AbstractCrudController
             TextField::new('name'),
             TextField::new('email'),
             ArrayField::new('roles'),
+            ImageField::new('imgAvatar')->setBasePath('images/profile')->setUploadDir('public/images/profile'),
+
         ];
     }
 

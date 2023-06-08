@@ -2,10 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Comment;
 use App\Entity\ItemCollection;
 use App\Entity\Topic;
 use App\Entity\User;
-use App\Entity\Item;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -18,6 +18,7 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+       $ttt = $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $routeBuilder = $this->get(AdminUrlGenerator::class);
                 $url = $routeBuilder->setController(UserCrudController::class)->generateUrl();
 
@@ -36,6 +37,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('User', 'fas fa-map-marker-alt', User::class);
         yield MenuItem::linkToCrud('Item collection', 'fas fa-comments', ItemCollection::class);
         yield MenuItem::linkToCrud('Topic', 'fas fa-comments', Topic::class);
-        yield MenuItem::linkToCrud('Item', 'fas fa-comments', Item::class);
+        yield MenuItem::linkToCrud('Comment', 'fas fa-comments', Comment::class);
     }
 }

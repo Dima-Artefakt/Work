@@ -109,6 +109,9 @@
     "psr/log": {
         "version": "2.0.0"
     },
+    "stfalcon/tinymce-bundle": {
+        "version": "v3.0.2"
+    },
     "symfony/asset": {
         "version": "v5.4.3"
     },
@@ -212,6 +215,9 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/mime": {
+        "version": "v5.4.21"
+    },
     "symfony/options-resolver": {
         "version": "v5.4.0"
     },
@@ -223,6 +229,9 @@
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.24.0"
+    },
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.27.0"
     },
     "symfony/polyfill-intl-normalizer": {
         "version": "v1.24.0"

@@ -1,0 +1,51 @@
+{% for comment in comments %}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div
+					class="panel-body">
+					<!-- Содержание Новостей -->
+					<div class="media-block">
+						<a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src={{ asset('images/profile/' ~  comment.getUser().getImgAvatar()) }}></a>
+						<div class="media-body">
+							<div class="mar-btm">
+								<a href="{{ path('profile',{idUser: comment.getUser().id}) }}" class="btn-link text-semibold media-heading box-inline">
+									{{ comment.getUser().getName() }}
+								</a>
+								<p class="text-muted text-sm">
+									{{ comment.createdAt| date("d-m-Y H:i:s") }}</p>
+							</div>
+							<p>{{ comment.text }}</p>
+							{# <div class="pad-ver">
+								<div class="btn-group">
+									<a class="btn btn-sm btn-default btn-hover-success" href="#">
+										<i class="fa fa-thumbs-up"></i>
+									</a>
+									<a class="btn btn-sm btn-default btn-hover-danger" href="#">
+										<i class="fa fa-thumbs-down"></i>
+									</a>
+								</div>
+								<a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
+							</div> #}
+						</div>
+					</div>
+					<!-- Конец Содержания Новостей -->
+				</div>
+			</div>
+		</div>
+	</div>
+{% endfor %}
+
+
+{% block javascripts %}
+	<script>
+		setInterval(function () {
+$.ajax({
+method: 'POST',
+url: "/collectionPage/addComment/" + {{ itemPageCollection.id }}
+}).done(function (data) {
+$('.js-last-comments').html(data);
+});
+}, 20000);
+	</script>
+{% endblock %}

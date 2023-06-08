@@ -1,41 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    {% endblock %}
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ path('hоme_page') }}">Home</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
-    <ul class="nav navbar-nav navbar-right">
-        {% if app.user %}
-            <a class="nav-link" href="{{ path('profile') }}">You are logged in as {{ app.user.username }}</a>
-            {% if app.user.granted('ROLE_ADMIN') %}
-            <li><a class="nav-link" href="{{ path('admin') }}">Admin</a></li>
-            {% endif %}
-            <li><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
-        {% else %}
-            <li><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
-            <li>
-                <a class="nav-link" href="{{ path('app_register') }}">Registeration</a>
-            </li>
-        {% endif %}
-    </ul>
-</nav>
+	<head>
+		{% block head %}
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			{% block stylesheets %}
 
-{% block body %}
+				<link rel="icon" type="image/png" href={{ asset('images/icons/favicon.png') }}/> <link rel="stylesheet" type="text/css" href={{ asset("vendor/bootstrap/css/bootstrap.min.css") }}>
 
-{% endblock %}
+				<link rel="stylesheet" type="text/css" href={{ asset("fonts/fontawesome-5.0.8/css/fontawesome-all.min.css") }}>
 
-{% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-{% endblock %}
-</body>
+				<link rel="stylesheet" type="text/css" href={{ asset("fonts/iconic/css/material-design-iconic-font.min.css") }}>
+
+				<link rel="stylesheet" type="text/css" href={{ asset("vendor/animate/animate.css") }}>
+
+				<link rel="stylesheet" type="text/css" href={{ asset("vendor/css-hamburgers/hamburgers.min.css") }}>
+
+				<link rel="stylesheet" type="text/css" href={{ asset("vendor/animsition/css/animsition.min.css") }}>
+
+				<link rel="stylesheet" type="text/css" href={{ asset("css/util.min.css") }}>
+
+				<link rel="stylesheet" type="text/css" href={{ asset("css/main.css") }}>
+
+			{% endblock %}
+			<title>
+				{% block title %}
+				{% endblock %}
+				- ArtefaktBlog!
+			</title>
+		{% endblock %}
+	</head>
+
+
+	{# url({{ 'images/collection' ~ asset(itemsCollection[1].img) }}); #}
+
+	{% block header %}
+		<header>
+			<!-- Header desktop -->
+			<div class="container-menu-desktop">
+				<div class="topbar">
+					<div class="content-topbar container h-100">
+						<div class="left-topbar">
+							{% if app.user %}
+								<span class="left-topbar-item flex-wr-s-c">
+									<span>
+										{# New York, NY #}
+									</span>
+
+									<img class="m-b-1 m-rl-8" src={{ asset('images/' ~ "/icons/icon-night.png") }} alt="IMG">
+
+									<span>
+										{# HI 58° LO 56° #}
+									</span>
+								</span>
+								<a href="{{ path('profile',{idUser: app.user.id}) }}" class="left-topbar-item">
+									Вы вошли как
+									{{ app.user.username }}
+								</a>
+								<a href="{{ path('collectionAdd') }}" class="left-topbar-item">
+									Создать статью
+								</a>
+								{% if app.user.granted('ROLE_ADMIN') %}
+									<a href="{{ path('admin') }}" class="left-topbar-item">
+										Администрирование
+									</a>
+								{% endif %}
+								<a href="{{ path('app_logout') }}" class="left-topbar-item">
+									Выйти
+								</a>
+							{% else %}
+								<a href="{{ path('abaut') }}" class="left-topbar-item">
+									О сайте
+								</a>
+
+								{# <a href="#" class="left-topbar-item">
+									Contact
+								</a> #}
+
+								<a href="{{ path('app_register') }}" class="left-topbar-item">
+									Регистрация
+								</a>
+
+								<a href="{{ path('app_login') }}" class="left-topbar-item">
+									Войти
+								</a>
+							{% endif %}
+						</div>
+
+						<div class="right-topbar">
+							<a href="#">
+								<span class="fab fa-facebook-f"></span>
+							</a>
+
+							<a href="#">
+								<span class="fab fa-twitter"></span>
+							</a>
+
+							<a href="#">
+								<span class="fab fa-pinterest-p"></span>
+							</a>
+
+							<a href="#">
+								<span class="fab fa-vimeo-v"></span>
+							</a>
+
+							<a href="#">
+								<span class="fab fa-youtube"></span>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Header Mobile -->
+				<div
+					class="wrap-header-mobile">
+					<!-- Logo moblie -->
+					<div class="logo-mobile">
+						{# <a href="#"><img src={{asset('images/' ~ "icons/logo-01.png") }} alt="IMG-LOGO"></a> #}
+					</div>
+
+					<!-- Button show menu -->
+					<div class="btn-show-menu-mobile hamburger hamburger--squeeze m-r--8">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</div>
+				</div>
+
+				<!-- Menu Mobile -->
+				<div class="menu-mobile">
+					<ul class="topbar-mobile">
+						<li class="left-topbar">
+
+							<span class="left-topbar-item flex-wr-s-c">
+								<span>
+									{# New York, NY #}
+								</span>
+
+								<img class="m-b-1 m-rl-8" src={{ asset("images/icons/icon-night.png") }} alt="IMG">
+
+								<span>
+									{# HI 58° LO 56° #}
+								</span>
+							</span>
+
+						</li>
+
+						<li class="left-topbar">
+							{% if app.user %}
+								<a href="{{ path('profile',{idUser: app.user.id}) }}" class="left-topbar-item">
+									Вы вошли как
+									{{ app.user.username }}
+								</a>
+								<a href="{{ path('collectionAdd') }}" class="left-topbar-item">
+									Создать статью
+								</a>
+								{% if app.user.granted('ROLE_ADMIN') %}
+									<a href="{{ path('admin') }}" class="left-topbar-item">
+										Администрирование
+									</a>
+								{% endif %}
+								<a href="{{ path('app_logout') }}" class="left-topbar-item">
+									Выйти
+								</a>
+							{% else %}
+								<a href="#" class="left-topbar-item">
+									About
+								</a>
+
+								<a href="#" class="left-topbar-item">
+									Contact
+								</a>
+
+								<a href="{{ path('app_register') }}" class="left-topbar-item">
+									Регистрация
+								</a>
+
+								<a href="{{ path('app_login') }}" class="left-topbar-item">
+									Войти
+								</a>
+							{% endif %}
+
+						</li>
+
+						<li class="right-topbar">
+							<a href="#">
+								<span class="fab fa-facebook-f"></span>
+							</a>
+
+							<a href="#">
+								<span class="fab fa-twitter"></span>
+							</a>
+
+							<a href="#">
+								<span class="fab fa-pinterest-p"></span>
+							</a>
+
+							<a href="#">
+								<span class="fab fa-vimeo-v"></span>
+							</a>
+
+							<a href="#">
+								<span class="fab fa-youtube"></span>
+							</a>
+						</li>
+					</ul>
+
+					{# <ul class="main-menu-m">
+						<li>
+							<a href="index.html">Home</a>
+							<ul class="sub-menu-m">
+								<li>
+									<a href="index.html">Homepage v1</a>
+								</li>
+								<li>
+							</ul>
+
+							<span class="arrow-main-menu-m">
+								<i class="fa fa-angle-right" aria-hidden="true"></i>
+							</span>
+						</li>
+
+						<li>
+							<a href="category-01.html">News</a>
+						</li>
+
+						<li>
+							<a href="category-02.html">Entertainment
+							</a>
+						</li>
+
+						<li>
+							<a href="category-01.html">Business</a>
+						</li>
+
+						<li>
+							<a href="category-02.html">Travel</a>
+						</li>
+
+						<li>
+							<a href="category-01.html">Life Style</a>
+						</li>
+
+						<li>
+							<a href="category-02.html">Video</a>
+						</li>
+
+						<li>
+
+							<span class="arrow-main-menu-m">
+								<i class="fa fa-angle-right" aria-hidden="true"></i>
+							</span>
+						</li>
+					</ul> #}
+				</div>
+
+				<!--  -->
+				{# <div class="wrap-logo container">
+								<!-- Logo desktop -->		
+								<div class="logo">
+									<a href="index.html"><img src="images/icons/logo-01.png" alt="LOGO"></a>
+								</div>	
+							</div>	 #}
+				{% block wrap_main_nav %}{% endblock %}
+			</div>
+		</header>
+	{% endblock %}
+
+	{% block body %}{% endblock %}
+
+	{% block javascripts %}
+		<script src={{ asset('vendor/jquery/jquery-3.2.1.min.js') }}></script>
+		<!--===============================================================================================-->
+		<script src={{ asset('vendor/animsition/js/animsition.min.js') }}></script>
+		<!--===============================================================================================-->
+		<script src={{ asset('vendor/bootstrap/js/popper.js') }}></script>
+		<script src={{ asset('vendor/bootstrap/js/bootstrap.min.js') }}></script>
+		<!--===============================================================================================-->
+		<script src={{ asset('js/main.js') }}></script>
+	{% endblock %}
+
 </html>

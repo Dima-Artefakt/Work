@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}О сайте
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div
+			class="main-body">
+			<!-- Breadcrumb -->
+			<div class="container">
+				<div class="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8">
+					<div class="f2-s-1 p-r-30 m-tb-6">
+						<a href="{{ path('hоme_page') }}" class="breadcrumb-item f1-s-3 cl9">
+							Домашняя
+						</a>
+
+						<a class="breadcrumb-item f1-s-3 cl9">
+							О сайте
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->
+
+			<!-- Profile -->
+			<div class="row gutters-sm">
+
+				<div class="col-md-8 mb-3">
+					<div class="card">
+						<span><b>Веб-сервис для ведения блога "ArtefaktBlog"</b></span>
+						<span><b>Автор:</b> Аперат (Артефакт) Дмитрий Владиславович</span>
+						<span><b>По всем вопросам писать на почту:</b> <a href="https://mail.ru/" > dima.artefak@gmail.com </a></span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	{% endblock %}

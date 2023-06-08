@@ -36,8 +36,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $name;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private $imgAvatar;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private $phone;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private $mobile;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private $address;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: ItemCollection::class, orphanRemoval: true)]
     private $itemCollections;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ItemCollection::class, orphanRemoval: true)]
+    private $Comments;
 
     public function __construct()
     {
@@ -155,6 +170,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getImgAvatar(): ?string
+    {
+        return $this->imgAvatar;
+    }
+
+    public function setImgAvatar(string $imgAvatar): self
+    {
+        $this->imgAvatar = $imgAvatar;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getMobile(): ?string
+    {
+        return $this->mobile;
+    }
+
+    public function setMobile(string $mobile): self
+    {
+        $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
     /**
      * @return Collection|ItemCollection[]
      */
@@ -184,4 +247,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->Comments;
+    }
+
+    public function addComments(ItemCollection $comment): self
+    {
+        if (!$this->Comments->contains($comment)) {
+            $this->Comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComments(ItemCollection $comment): self
+    {
+        if ($this->Comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }
+
+
